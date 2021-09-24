@@ -1,4 +1,4 @@
-# docker action kubernetes one deployment restart
+# Docker Action (kubernetes one deployment restart)
 
 Esta ação Reinicia um workload específico.
 
@@ -7,7 +7,7 @@ Esta ação Reinicia um workload específico.
 ### `deployment`
 ### `namespace`
 
-**Obrigatório** O nome da pessoa a quem cumprimentar. Padrão `"World"`.
+**Obrigatório**  deployment e namespace.
 
 ## Exemplo de uso
 ```

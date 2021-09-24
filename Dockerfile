@@ -1,9 +1,16 @@
-FROM bitnami/kubectl:1.21
+FROM debian:buster
+COPY config_template /runner/
 
-# Copia o arquivo de código do repositório de ação para o caminho do sistema de arquivos `/` do contêiner
-COPY entrypoint.sh /entrypoint.sh
+RUN useradd -d /runner --uid=1000 runner \
+    && echo 'runner:runner' | chpasswd \
+    && groupadd docker --gid=999 \
+    && usermod -aG docker runner \
+    && curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl \
+    && mv ./kubectl /usr/local/bin/ \
+    && mkdir /runner/.kube \
+    && chmod +x /usr/local/bin/kubectl
 
-RUN chmod +x entrypoint.sh
+USER runner
+WORKDIR /runner
 
-# Arquivo de código a ser executado quando o contêiner do docker é iniciado (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]

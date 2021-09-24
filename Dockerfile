@@ -1,8 +1,8 @@
 FROM debian:buster
 COPY config_template /runner/
 
-RUN apt-get install curl \
-    && useradd -d /runner --uid=1000 runner \
+RUN apt-get install curl
+RUN useradd -d /runner --uid=1000 runner \
     && echo 'runner:runner' | chpasswd \
     && groupadd docker --gid=999 \
     && usermod -aG docker runner \

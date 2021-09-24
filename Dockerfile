@@ -1,5 +1,6 @@
 FROM debian:buster
 COPY config_template /runner/
+COPY entrypoint.sh /runner/
 
 RUN apt-get update \
     && apt-get install -y -q curl
@@ -15,4 +16,4 @@ RUN useradd -d /runner --uid=1000 runner \
 USER runner
 WORKDIR /runner
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/runner/entrypoint.sh"]

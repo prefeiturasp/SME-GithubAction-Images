@@ -1,0 +1,18 @@
+name: 'Kubectl for one deployment'
+description: 'Restart a specified deployment'
+author: "Luiz Priotto <luiz.priotto@amcom.com.br>"
+
+inputs:
+  deployment:
+    description:
+    required: true
+  namespace:
+    description:
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.deployment }}
+    - ${{ inputs.namespace }}

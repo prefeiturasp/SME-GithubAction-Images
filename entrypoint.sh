@@ -5,8 +5,10 @@
 
 sed -e "s/\${RANCHER_URL}/$RANCHER_URL/" -e "s/\${RANCHER_TOKEN}/$RANCHER_TOKEN/" /runner/config_template > /runner/.kube/config
 
-res=$(kubectl rollout restart deployment/$1 -n $2)
+kubectl rollout restart deployment/$1 -n $2
 
-echo "::set-output name=res::$res"
+#res=$(kubectl rollout restart deployment/$1 -n $2)
+
+#echo "::set-output name=res::$res"
 
 rm -f /runner/.kube/config

@@ -4,6 +4,7 @@ COPY entrypoint.sh /runner/
 
 RUN apt-get update \
     && apt-get install -y -q curl
+    
 RUN useradd -d /runner --uid=1000 runner \
     && echo 'runner:runner' | chpasswd \
     && groupadd docker --gid=999 \
@@ -12,6 +13,9 @@ RUN useradd -d /runner --uid=1000 runner \
     && mv ./kubectl /usr/local/bin/ \
     && mkdir /runner/.kube \
     && chmod +x /usr/local/bin/kubectl
+
+RUN chmod +x /runner/entrypoint.sh \
+    && chown -Rf runner:runner /runner
 
 USER runner
 WORKDIR /runner

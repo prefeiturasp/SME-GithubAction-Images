@@ -1,4 +1,4 @@
-# Docker Action (kubernetes one deployment restart)
+# Kubectl restart workload
 
 Esta ação reinicia um workload específico ou todos os workloads de um namespace.
 

@@ -1,21 +1,19 @@
 #!/bin/bash -l
 
-#$1 = deployment name
-#$2 = namespace
+set -e
 
-ls
-pwd
+#$1 = deployment name / ${INPUT_DEPLOYMENT}
+#$2 = namespace / ${INPUT_NAMESPACE}
 
-cat /runner/config_template
 
-echo $RANCHER_URL
+echo ${RANCHER_URL}
 
-sed -e "s/\${RANCHER_URL}/$RANCHER_URL/" -e "s/\${RANCHER_TOKEN}/$RANCHER_TOKEN/" /runner/config_template > /runner/.kube/config
+sed -e "s/\${RANCHER_URL}/${RANCHER_URL}/" -e "s/\${RANCHER_TOKEN}/${RANCHER_TOKEN}/" /runner/config_template > /runner/.kube/config
 
 cat /runner/.kube/config
 
-echo $1
-echo $2
+echo ${INPUT_DEPLOYMENT}
+echo ${INPUT_NAMESPACE}
 
 kubectl rollout restart deployment/$1 -n $2
 

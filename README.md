@@ -19,5 +19,5 @@ Esta ação reinicia um workload específico ou todos os workloads de um namespa
 ## Variaveis necessárias
 * `RANCHER_URL` - exemplo: rancher.dominio.com.br
 * `RANCHER_TOKEN` - exemplo: kubeconfig-u-0000000000:jdmfuritirogs4j2kp98jk4bzbzkfvbnq29v5s8p7scwl7667jtigure
-* `WORKLOAD` - caso especificado reinicia um workload, caso não reinicia todos os workloads do namespace
+* `WORKLOAD` - caso especificado reinicia um workload, caso não, reinicia todos os workloads do namespace
 * `NAMESPACE` - namespace do(s) workload(s)

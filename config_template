@@ -16,3 +16,5 @@ contexts:
   context:
     user: "local"
     cluster: "local"
+
+current-context: "local"

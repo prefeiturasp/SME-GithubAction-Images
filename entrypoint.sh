@@ -4,6 +4,7 @@
 #$2 = namespace
 
 ls
+pwd
 
 cat /runner/config_template
 

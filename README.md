@@ -2,13 +2,6 @@
 
 Esta ação reinicia um workload específico ou todos os workloads de um namespace.
 
-## Inputs
-
-### `deployment`
-### `namespace`
-
-**Obrigatório**  deployment e namespace.
-
 ## Exemplo de uso
 ```
     steps:

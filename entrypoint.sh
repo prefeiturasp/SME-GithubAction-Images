@@ -8,6 +8,11 @@ cat /runner/kube.yaml
 
 export KUBECONFIG=/runner/kube.yaml
 
+if [ -z "$WORKLOAD" ]; then
+    kubectl -n ${NAMESPACE} rollout restart deploy
+    exit 0
+fi
+
 kubectl rollout restart deployment/${WORKLOAD} -n ${NAMESPACE}
 
 rm -f /runner/kube.yaml

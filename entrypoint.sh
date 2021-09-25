@@ -15,8 +15,11 @@ env
 echo ${INPUT_DEPLOYMENT}
 echo ${INPUT_NAMESPACE}
 echo $HOME
-echo ${HOME)
+echo ${HOME}
 kubectl rollout restart deployment/$1 -n $2
+
+echo $KUBECONFIG
+echo ${KUBECONFIG}
 
 #res=$(kubectl rollout restart deployment/$1 -n $2)
 

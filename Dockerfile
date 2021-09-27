@@ -28,6 +28,8 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
 
 USER runner
 
+ENV DOTNET_CLI_HOME="/runner"
+
 RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
 
 ENV PATH="$PATH:/runner"

@@ -5,19 +5,33 @@ set -e
 #CMD> && <SUCCESS_ACTION> || <FAIL_ACTION>
 #echo sonar.host.url=\"${ENVCMD//[$'\t\r\n']}\""
 
+echo "Debug"
+
+echo $SONAR_PROJECT_KEY
+echo $SONAR_HOST
+echo $SONAR_TOKEN
+echo $SONAR_EXTRA_ARG
+echo $DOTNET_PROJECT
+
+echo "end Debug"
+
 begin_cmd="/runner/dotnet-sonarscanner begin \\
     /k:\"${SONAR_PROJECT_KEY//[$'\t\r\n']:?Please set the projectKey environment variable.}\" \\
-    /d:sonar.host=\"${SONAR_HOST:?Please set the SONAR_HOST environment variable.}\" \\
+    /d:sonar.host.url=\"${SONAR_HOST:?Please set the SONAR_HOST environment variable.}\" \\
     /d:sonar.login=\"${SONAR_TOKEN:?Please set the SONAR_TOKEN environment variable.}\" "
 
+echo "Complete begin command"
+echo $begin_cmd
 
 end_cmd="/runner/dotnet-sonarscanner end \\
      /d:sonar.login=\"${SONAR_TOKEN:?Please set the SONAR_TOKEN environment variable.}\" "
 
+echo "Complete end command"
+echo $end_cmd
+
 #if string exists and is not empty.
-if [ -n $SONAR_EXTRA_ARG ]
+if [ ! -z "$SONAR_EXTRA_ARG" ]
 then
-    echo "extra arguments $SONAR_EXTRA_ARG"
     begin_cmd="$begin_cmd $SONAR_EXTRA_ARG"
 fi
 

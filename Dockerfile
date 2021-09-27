@@ -4,7 +4,7 @@ COPY entrypoint.sh /runner/
 COPY check-quality-gate.sh /runner/
 COPY common.sh /runner/
 
-RUN chmod +x /runner/entrypoint.sh \
+RUN chmod +x /runner/entrypoint.sh && \
     apt-get update && \
     apt-get install -y gnupg jq
 

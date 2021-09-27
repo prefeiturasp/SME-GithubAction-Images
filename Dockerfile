@@ -1,5 +1,4 @@
 FROM debian:buster
-COPY config_template /runner/
 COPY entrypoint.sh /runner/
     
 RUN useradd -d /runner --uid=1000 runner \

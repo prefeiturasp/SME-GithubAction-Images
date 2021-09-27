@@ -1,7 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0
   
-COPY check-quality-gate.sh /runner/
-COPY common.sh /runner/
+
 
 RUN apt-get update && \
     apt-get install -y gnupg jq
@@ -26,7 +25,12 @@ RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
 ENV PATH="$PATH:/runner"
 
 COPY entrypoint.sh /runner/
+COPY check-quality-gate.sh /runner/
+COPY common.sh /runner/
+
 RUN chmod +x /runner/entrypoint.sh
+RUN chmod +x /runner/check-quality-gate.sh 
+RUN chmod +x /runner/common.sh
 
 WORKDIR /runner
 

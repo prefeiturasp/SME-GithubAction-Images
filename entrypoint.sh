@@ -5,13 +5,13 @@ set -e
 #CMD> && <SUCCESS_ACTION> || <FAIL_ACTION>
 #echo sonar.host.url=\"${ENVCMD//[$'\t\r\n']}\""
 
-begin_cmd="/dotnet-sonarscanner begin \\
+begin_cmd="/runner/dotnet-sonarscanner begin \\
     /k:\"${SONAR_PROJECT_KEY//[$'\t\r\n']:?Please set the projectKey environment variable.}\" \\
     /d:sonar.host=\"${SONAR_HOST:?Please set the SONAR_HOST environment variable.}\" \\
     /d:sonar.login=\"${SONAR_TOKEN:?Please set the SONAR_TOKEN environment variable.}\""
 
 
-end_cmd="/dotnet-sonarscanner end \\
+end_cmd="/runner/dotnet-sonarscanner end \\
      /d:sonar.login=\"${SONAR_TOKEN:?Please set the SONAR_TOKEN environment variable.}\""
 
 #if string exists and is not empty.

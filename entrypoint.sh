@@ -41,5 +41,5 @@ sh -c "$end_cmd"
 echo "Checking if the result exist."
 if [ -f ".sonarqube/out/.sonar/report-task.txt" ]
 then
-  ./check-quality-gate.sh .sonarqube/out/.sonar/report-task.txt 
+  /runner/check-quality-gate.sh .sonarqube/out/.sonar/report-task.txt 
 fi

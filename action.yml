@@ -2,11 +2,6 @@ name: 'Kubectl for one deployment'
 description: 'Restart a specified deployment'
 author: "Luiz Priotto <luiz.priotto@amcom.com.br>"
 
-inputs:
-  ARGCMD:
-    description: "teste de argumento"
-    required: false
-
 runs:
   using: 'docker'
   image: 'Dockerfile'

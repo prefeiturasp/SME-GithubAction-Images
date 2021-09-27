@@ -1,16 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0
-
-RUN useradd -d /runner --uid=1000 runner \
-    && echo 'runner:runner' | chpasswd \
-    && groupadd docker --gid=999 \
-    && usermod -aG docker runner
-    
+  
 COPY entrypoint.sh /runner/
 COPY check-quality-gate.sh /runner/
 COPY common.sh /runner/
 
 RUN chmod +x /runner/entrypoint.sh \
-    && chown -Rf runner:runner /runner && apt-get update && \
+    apt-get update && \
     apt-get install -y gnupg jq
 
 
@@ -25,8 +20,6 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     apt-get install -y --no-install-recommends python3 python3-distutils python3-pip python3-setuptools && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* && \
     apt-get autoremove -y
-
-USER runner
 
 ENV DOTNET_CLI_HOME="/runner"
 

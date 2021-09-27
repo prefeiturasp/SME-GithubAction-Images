@@ -33,3 +33,5 @@ RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
 ENV PATH="$PATH:/runner"
 
 WORKDIR /runner
+
+ENTRYPOINT ["/runner/entrypoint.sh"]

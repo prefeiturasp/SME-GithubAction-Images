@@ -6,6 +6,8 @@ RUN useradd -d /runner --uid=1000 runner \
     && usermod -aG docker runner
     
 COPY entrypoint.sh /runner/
+COPY check-quality-gate.sh /runner/
+COPY common.sh /runner/
 
 RUN chmod +x /runner/entrypoint.sh \
     && chown -Rf runner:runner /runner && apt-get update && \

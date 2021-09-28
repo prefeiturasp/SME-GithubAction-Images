@@ -21,17 +21,14 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     
 ENV DOTNET_CLI_HOME="/runner"
 
-RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
-
 ENV PATH="$PATH:/runner"
 
-COPY entrypoint.sh /runner/
-COPY check-quality-gate.sh /runner/
-COPY common.sh /runner/
+COPY entrypoint.sh check-quality-gate.sh common.sh /runner/
+RUN chmod +x /runner/entrypoint.sh /runner/check-quality-gate.sh /runner/common.sh && chown -Rf runner:runner /runner
 
-RUN chmod +x /runner/entrypoint.sh
-RUN chmod +x /runner/check-quality-gate.sh 
-RUN chmod +x /runner/common.sh
+USER runner
+
+RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
 
 WORKDIR /runner
 

@@ -5,7 +5,7 @@ COPY entrypoint.sh /runner/
 RUN apt-get update \
     && apt-get install -y -q curl
     
-RUN useradd -d /runner --uid=1000 runner \
+RUN useradd -d /runner --uid=1002 runner \
     && echo 'runner:runner' | chpasswd \
     && groupadd docker --gid=999 \
     && usermod -aG docker runner \

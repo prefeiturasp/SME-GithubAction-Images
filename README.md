@@ -1,6 +1,6 @@
-# Kubectl restart workload
+# Dotner Sonar Scanner
 
-Esta ação reinicia um workload específico ou todos os workloads de um namespace.
+Esta ação analisa o códido através do SonarQube e valida o Quality Gate
 
 ## Exemplo de uso
 ```
@@ -8,16 +8,18 @@ Esta ação reinicia um workload específico ou todos os workloads de um namespa
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: Redeploy
-        uses: luizhpriotto/action_images@kubectl-v1.0
-        env: 
-          RANCHER_URL: ${{ secrets.RANCHER_URL }}
-          RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
-          WORKLOAD: workload
-          NAMESPACE: namespace
+      - name: Sonar
+        uses: luizhpriotto/action_images@sonarscanner-v1.0
+        env:
+          DOTNET_PROJECT: SME.SERAp.Prova.Api.sln
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST: http://sonar.domain.local /
+          SONAR_EXTRA_ARG: >
+            /d:sonar.cs.opencover.reportsPaths='"teste/SME.SERAp.Aplicacao.Test/coverage.opencover.xml","teste/SME.SERAp.Dominio.Test/coverage.opencover.xml"'
+            /d:sonar.coverage.exclusions='"**Test*.cs"'
 ```
 ## Variaveis necessárias
-* `RANCHER_URL` - exemplo: rancher.dominio.com.br
-* `RANCHER_TOKEN` - exemplo: kubeconfig-u-0000000000:jdmfuritirogs4j2kp98jk4bzbzkfvbnq29v5s8p7scwl7667jtigure
-* `WORKLOAD` - caso especificado reinicia um workload, caso não, reinicia todos os workloads do namespace
-* `NAMESPACE` - namespace do(s) workload(s)
+* `SONAR_PROJECT_KEY` -  chave do projeto
+* `SONAR_TOKEN` - token de acesso
+* `SONAR_HOST` - endereço do SonarQube

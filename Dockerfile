@@ -25,9 +25,11 @@ ENV PATH="$PATH:/runner"
 
 COPY entrypoint.sh check-quality-gate.sh common.sh /runner/
 
-RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
+RUN chmod +x /runner/entrypoint.sh /runner/check-quality-gate.sh /runner/common.sh && chown -Rf runner:runner /runner
 
-RUN chmod +x /runner/entrypoint.sh /runner/check-quality-gate.sh /runner/common.sh && chown -Rf runner:runner /runner && mkdir /github && chown -Rf runner:runner /github
+USER runner
+
+RUN dotnet tool install dotnet-sonarscanner --global --tool-path /runner
 
 WORKDIR /runner
 

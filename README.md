@@ -14,7 +14,7 @@ Esta ação analisa o códido através do SonarQube e valida o Quality Gate
           DOTNET_PROJECT: SME.SERAp.Prova.Api.sln
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST: http://sonar.domain.local /
+          SONAR_HOST: http://sonar.domain.local/
           SONAR_EXTRA_ARG: >
             /d:sonar.cs.opencover.reportsPaths='"teste/SME.SERAp.Aplicacao.Test/coverage.opencover.xml","teste/SME.SERAp.Dominio.Test/coverage.opencover.xml"'
             /d:sonar.coverage.exclusions='"**Test*.cs"'

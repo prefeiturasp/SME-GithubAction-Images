@@ -1,9 +1,4 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0
-  
-
-
-RUN apt-get update && \
-    apt-get install -y gnupg jq
 
 
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg && \
@@ -18,6 +13,13 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* && \
     apt-get autoremove -y
 
+RUN useradd -d /runner --uid=1000 runner \
+    && echo 'runner:runner' | chpasswd \
+    && groupadd docker --gid=999 \
+    && usermod -aG docker runner \
+    && apt-get update \
+    && apt-get install -y gnupg jq
+    
 ENV DOTNET_CLI_HOME="/runner"
 
 RUN dotnet tool install dotnet-sonarscanner --tool-path /runner

@@ -29,7 +29,7 @@ RUN chmod +x /runner/entrypoint.sh /runner/check-quality-gate.sh /runner/common.
 
 USER runner
 
-RUN dotnet tool install dotnet-sonarscanner --global --tool-path /runner
+RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
 
 WORKDIR /runner
 

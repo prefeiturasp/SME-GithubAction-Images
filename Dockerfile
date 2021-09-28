@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0
 
-RUN useradd -d /runner --uid=1000 runner \
+RUN useradd -d /runner --uid=1002 runner \
     && echo 'runner:runner' | chpasswd \
     && groupadd docker --gid=999 \
     && usermod -aG docker runner \

@@ -1,4 +1,4 @@
-# Dotner Sonar Scanner
+# Dotnet Sonar Scanner
 
 Esta ação analisa o códido através do SonarQube e valida o Quality Gate
 

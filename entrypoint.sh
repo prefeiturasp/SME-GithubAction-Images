@@ -49,6 +49,12 @@ if [ -n $DOTNET_PROJECT ]
 then
   dotnet build $DOTNET_PROJECT
 fi
+
+#if string exists and is not empty.
+if [ -n $DOTNET_PROJECT ]
+then
+  dotnet test $DOTNET_PROJECT /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+fi
  
 sh -c "$end_cmd"
 

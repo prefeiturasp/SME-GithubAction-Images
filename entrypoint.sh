@@ -18,7 +18,7 @@ begin_cmd="sonar-scanner \\
     -Dsonar.projectKey=\"${SONAR_PROJECT_KEY//[$'\t\r\n']:?Please set the projectKey environment variable.}\" \\
     -Dsonar.host.url=\"${SONAR_HOST:?Please set the SONAR_HOST environment variable.}\" \\
     -Dsonar.login=\"${SONAR_TOKEN:?Please set the SONAR_TOKEN environment variable.}\" \\
-    -Dsonar.sourceEncoding=UTF-8
+    -Dsonar.sourceEncoding=UTF-8"
 
 echo "Complete begin command"
 echo $begin_cmd

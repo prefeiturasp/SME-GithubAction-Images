@@ -1,4 +1,4 @@
-# Dotnet Sonar Scanner
+# Dotnet Sonar Scanner Cli
 
 Esta ação analisa o códido através do SonarQube e valida o Quality Gate
 
@@ -9,9 +9,8 @@ Esta ação analisa o códido através do SonarQube e valida o Quality Gate
         uses: actions/checkout@v2
       
       - name: Sonar
-        uses: luizhpriotto/action_images@sonarscanner-v1.0
+        uses: luizhpriotto/action_images@sonarscannercli-v1.0
         env:
-          DOTNET_PROJECT: SME.SERAp.Prova.Api.sln
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST: http://sonar.domain.local/

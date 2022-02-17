@@ -11,7 +11,6 @@ echo $SONAR_PROJECT_KEY
 echo $SONAR_HOST
 echo $SONAR_TOKEN
 echo $SONAR_EXTRA_ARG
-echo $DOTNET_PROJECT
 
 echo "end Debug"
 
@@ -35,27 +34,8 @@ then
     begin_cmd="$begin_cmd $SONAR_EXTRA_ARG"
 fi
 
-#if string exists and is not empty.
-if [ -n $DOTNET_PROJECT ]
-then
-  echo "dotnet project: $DOTNET_PROJECT"
-  dotnet restore $DOTNET_PROJECT
-fi
-
 sh -c "$begin_cmd"
 
-#if string exists and is not empty.
-if [ -n $DOTNET_PROJECT ]
-then
-  dotnet build $DOTNET_PROJECT
-fi
-
-#if string exists and is not empty.
-if [ -n $DOTNET_PROJECT ]
-then
-  dotnet test $DOTNET_PROJECT /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-fi
- 
 sh -c "$end_cmd"
 
 echo "Checking if the result exist."

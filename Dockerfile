@@ -1,26 +1,22 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0
+FROM debian:bullseye
 
 RUN useradd -d /runner --uid=1002 runner \
     && echo 'runner:runner' | chpasswd \
     && groupadd docker --gid=999 \
     && usermod -aG docker runner \
     && apt-get update \
-    && apt-get install -y gnupg jq
+    && apt-get install -y gnupg jq wget default-jre
 
-RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg && \
-    mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ && \
-    wget -q https://packages.microsoft.com/config/debian/10/prod.list && \
-    mv prod.list /etc/apt/sources.list.d/microsoft-prod.list && \
-    chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg && \
-    chown root:root /etc/apt/sources.list.d/microsoft-prod.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends default-jre apt-transport-https aspnetcore-runtime-2.1 mono-complete && \
-    apt-get install -y --no-install-recommends python3 python3-distutils python3-pip python3-setuptools && \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* && \
-    apt-get autoremove -y
+WORKDIR /runner
+
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip \
+    && unzip sonar-scanner-cli-4.6.2.2472-linux.zip \
+    && rm sonar-scanner-cli-4.6.2.2472-linux.zip \
+    && chmod +x sonar-scanner-cli-4.6.2.2472-linux/bin/sonar-scanner \
+    && ln -s /runner/sonar-scanner-cli-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner \
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* \
+    && apt-get autoremove -y
     
-ENV DOTNET_CLI_HOME="/runner"
-
 ENV PATH="$PATH:/runner"
 
 COPY entrypoint.sh check-quality-gate.sh common.sh /runner/
@@ -28,9 +24,5 @@ COPY entrypoint.sh check-quality-gate.sh common.sh /runner/
 RUN chmod +x /runner/entrypoint.sh /runner/check-quality-gate.sh /runner/common.sh && chown -Rf runner:runner /runner
 
 USER runner
-
-RUN dotnet tool install dotnet-sonarscanner --tool-path /runner
-
-WORKDIR /runner
 
 ENTRYPOINT ["/runner/entrypoint.sh"]

@@ -36,3 +36,7 @@ if [ -f ".scannerwork/report-task.txt" ]
 then
   /runner/check-quality-gate.sh .scannerwork/report-task.txt
 fi
+
+ls -ltra
+pwd
+cat ok.txt

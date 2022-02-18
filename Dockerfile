@@ -6,7 +6,7 @@ RUN useradd -d /runner --uid=1002 runner \
     && usermod -aG docker runner \
     && mkdir /runner \
     && chown -Rf runner:runner /runner \
-    && apt install -y docker docker.io
+    && apt update && apt install -y docker docker.io
 
 WORKDIR /runner
 

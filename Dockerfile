@@ -13,7 +13,7 @@ COPY entrypoint.sh /runner/
 
 RUN chmod +x /runner/entrypoint.sh && chown -Rf runner:runner /runner
     
-ENV PATH="$PATH:/runner/.local/bin"
+ENV PATH="$PATH:/github/home/.local/bin"
 
 USER runner
 

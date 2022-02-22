@@ -15,6 +15,7 @@ COPY entrypoint.sh /runner/
 RUN chmod +x /runner/entrypoint.sh && chown -Rf runner:runner /runner
 
 ENV WORKON_HOME /runner
+ENV PIPENV_PIPFILE /runner/SME-Terceirizadas/Pipfile
 ENV PATH="$PATH:/runner/.local/bin"
 
 USER runner

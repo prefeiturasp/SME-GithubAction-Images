@@ -13,9 +13,16 @@ WORKDIR /runner
 COPY entrypoint.sh /runner/
 
 RUN chmod +x /runner/entrypoint.sh && chown -Rf runner:runner /runner
-    
-ENV PATH="$PATH:/github/home/.local/bin"
+
+ENV PATH="$PATH:/runner/.local/bin"
 
 USER runner
+
+RUN cd /runner && git clone https://github.com/prefeiturasp/SME-Terceirizadas.git -b development \
+    && cd /runner/SME-Terceirizadas \
+    && pip install --user pipenv \
+    && pipenv install --dev \
+    && cd /runner \
+    && rm -Rf SME-Terceirizadas
 
 ENTRYPOINT ["/runner/entrypoint.sh"]

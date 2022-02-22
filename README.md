@@ -9,7 +9,7 @@
         uses: actions/checkout@v2
       
       - name: Running Python Tests
-        uses: luizhpriotto/action_images@python36-terceirizadas-backend-cache-v1.0
+        uses: luizhpriotto/action_images@terceirizadas-backend-cache-v1.0
         with:
           command: |
             pipenv run pytest

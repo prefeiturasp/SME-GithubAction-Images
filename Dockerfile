@@ -23,7 +23,6 @@ USER runner
 RUN git clone https://github.com/prefeiturasp/SME-Terceirizadas.git -b development \
     && cd SME-Terceirizadas \
     && pip install --user pipenv \
-    && pipenv install --dev \
-    && cd .. && rm -Rf SME-Terceirizadas
+    && pipenv install --dev
 
 ENTRYPOINT ["/runner/entrypoint.sh"]

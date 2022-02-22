@@ -10,19 +10,10 @@ RUN useradd -d /runner --uid=1002 runner \
 
 WORKDIR /runner
 
-COPY entrypoint.sh /runner/
+COPY entrypoint.sh requirements.txt /runner/
 
 RUN chmod +x /runner/entrypoint.sh && chown -Rf runner:runner /runner
 
-ENV WORKON_HOME /runner
-ENV PIPENV_PIPFILE /runner/SME-Terceirizadas/Pipfile
-ENV PATH="$PATH:/runner/.local/bin"
-
 USER runner
-
-RUN git clone https://github.com/prefeiturasp/SME-Terceirizadas.git -b development \
-    && cd SME-Terceirizadas \
-    && pip install --user pipenv \
-    && pipenv install --dev
 
 ENTRYPOINT ["/runner/entrypoint.sh"]

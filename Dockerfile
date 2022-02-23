@@ -10,6 +10,9 @@ RUN useradd -d /runner --uid=1002 runner \
 
 WORKDIR /runner
 
+#requirements.txt gerado com o comando: pipenv lock --keep-outdated --requirements --dev > requirements.txt
+#necessario corrigir os conflitos
+
 COPY entrypoint.sh requirements.txt /runner/
 
 ENV PATH="$PATH:/runner/.local/bin"

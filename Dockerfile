@@ -13,6 +13,7 @@ WORKDIR /runner
 COPY entrypoint.sh requirements.txt /runner/
 
 ENV PATH="$PATH:/runner/.local/bin"
+ENV PIP_CACHE_DIR /runner/.cache/pip
 
 RUN chmod +x /runner/entrypoint.sh && chown -Rf runner:runner /runner
 

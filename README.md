@@ -1,6 +1,6 @@
 # Dotnet Sonar Scanner
 
-Esta ação analisa o códido através do SonarQube e valida o Quality Gate
+Esta ação analisa o códido através do SonarQube e valida o Quality Gate para Dotnet
 
 ## Exemplo de uso
 ```
@@ -23,3 +23,4 @@ Esta ação analisa o códido através do SonarQube e valida o Quality Gate
 * `SONAR_PROJECT_KEY` -  chave do projeto
 * `SONAR_TOKEN` - token de acesso
 * `SONAR_HOST` - endereço do SonarQube
+* `DOTNET_PROJECT` - nome projet sln

@@ -1,6 +1,6 @@
-# Sonar Scanner Cli
+# Python3.6
 
-Esta ação analisa o códido através do SonarQube e valida o Quality Gate
+
 
 ## Exemplo de uso
 ```
@@ -8,17 +8,12 @@ Esta ação analisa o códido através do SonarQube e valida o Quality Gate
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: Sonar
-        uses: luizhpriotto/action_images@sonarscannercli-v1.0
-        env:
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST: http://sonar.domain.local/
-          SONAR_EXTRA_ARG: >
-            /d:sonar.cs.opencover.reportsPaths='"teste/SME.SERAp.Aplicacao.Test/coverage.opencover.xml","teste/SME.SERAp.Dominio.Test/coverage.opencover.xml"'
-            /d:sonar.coverage.exclusions='"**Test*.cs"'
+      - name: Running Python Tests
+        uses: luizhpriotto/action_images@python36-v1.0
+        with:
+          command: |
+            pip install --user pipenv
+            pipenv install --dev
+            pipenv run pytest
+            pipenv run flake8
 ```
-## Variaveis necessárias
-* `SONAR_PROJECT_KEY` -  chave do projeto
-* `SONAR_TOKEN` - token de acesso
-* `SONAR_HOST` - endereço do SonarQube

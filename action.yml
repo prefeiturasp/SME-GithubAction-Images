@@ -1,0 +1,7 @@
+name: 'Sonar Scanner Cli'
+description: 'Create and validate a report from sonnar scanner on premise'
+author: "Luiz Priotto <luiz.priotto@amcom.com.br>"
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

@@ -1,0 +1,16 @@
+name: 'Python 3.6'
+description: '...'
+author: "Luiz Priotto <luiz.priotto@amcom.com.br>"
+branding:
+  icon: 'command'
+  color: 'red'
+inputs:
+  command:
+    description: 'Comandos Python'
+    required: true
+    
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.command }}

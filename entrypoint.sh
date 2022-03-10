@@ -13,6 +13,15 @@ if [ -z "$WORKLOAD" ]; then
     exit 0
 fi
 
-kubectl rollout restart deployment/${WORKLOAD} -n ${NAMESPACE}
+
+IN=${WORKLOAD}
+
+workloads=$(echo $IN | tr "," "\n")
+
+for work in $workloads
+do
+    kubectl rollout restart deployment/$work -n ${NAMESPACE}
+done
 
 rm -f /runner/kube.yaml
+exit 0

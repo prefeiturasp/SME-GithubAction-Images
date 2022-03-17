@@ -9,11 +9,11 @@ RUN useradd -d /runner --uid=1002 runner \
 
 WORKDIR /runner
 
-RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip \
-    && unzip sonar-scanner-cli-4.6.2.2472-linux.zip \
-    && rm sonar-scanner-cli-4.6.2.2472-linux.zip \
-    && chmod +x /runner/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-    && ln -s /runner/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner \
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip \
+    && unzip sonar-scanner-cli-4.7.0.2747-linux.zip \
+    && rm sonar-scanner-cli-4.7.0.2747-linux.zip \
+    && chmod +x /runner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner \
+    && ln -s /runner/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* \
     && apt-get autoremove -y
     

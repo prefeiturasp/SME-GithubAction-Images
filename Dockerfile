@@ -5,7 +5,7 @@ RUN useradd -d /runner --uid=1002 runner \
     && groupadd docker --gid=999 \
     && usermod -aG docker runner \
     && apt-get update \
-    && apt-get install -y gnupg jq wget default-jre zip unzip git nodejs curl
+    && apt-get install -y gnupg jq wget default-jre zip unzip git nodejs curl locales locales-all
 
 WORKDIR /runner
 
@@ -17,6 +17,9 @@ RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-s
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* \
     && apt-get autoremove -y
     
+ENV LC_ALL pt_BR.UTF-8
+ENV LANG pt_BR.UTF-8
+ENV LANGUAGE pr_BR.UTF-8    
 ENV PATH="$PATH:/runner"
 
 COPY entrypoint.sh check-quality-gate.sh common.sh /runner/

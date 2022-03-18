@@ -1,4 +1,4 @@
-# Dotnet Sonar Scanner Cli
+# Sonar Scanner Cli
 
 Esta ação analisa o códido através do SonarQube e valida o Quality Gate
 

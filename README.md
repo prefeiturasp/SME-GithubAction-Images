@@ -1,6 +1,9 @@
-# Python3.6 com cache do Pip
+# Python 36 com cache do Pipefile
 
 
+```
+pipenv lock --keep-outdated --requirements --dev > requirements.txt
+```
 
 ## Exemplo de uso
 ```

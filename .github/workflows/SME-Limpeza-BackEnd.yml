@@ -13,12 +13,13 @@ jobs:
       - uses: actions/checkout@v2
       
       -  name: Gitlab
-         with:
-          username: ${{ secrets.GITLAB_USER }}
-          password: ${{ secrets.GITLAB_PWD }}
-          repository: ${{ secrets.GITLAB_REPO }}
-          run: |
-              git -c credential.helper='!f() { sleep 1; echo "username=${{ secrets.GITLAB_USER }}"; echo "password=${{ secrets.GITLAB_PWD }}"; }; f' clone ${{ secrets.GITLAB_REPO }} -b main
+         shell: bash
+         env:
+          gitlabuser: ${{ secrets.GITLAB_USER }}
+          gitlabpwd: ${{ secrets.GITLAB_PWD }}
+          gitlabrepo: ${{ secrets.GITLAB_REPO }}
+         run: |
+              git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b main
               cd SME-Limpeza-BackEnd
               ls
               pwd

@@ -18,8 +18,8 @@ jobs:
           gitlabrepo: ${{ secrets.GITLAB_REPO_APP }}
          run: |
               export GIT_SSL_NO_VERIFY=1
-              pwd
+              rm -Rf SME-Limpeza-App
               git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b main
               cd SME-Limpeza-App
+              chmod +x menu-run.sh
               ./menu-run.sh build-apk-prod
-              ls

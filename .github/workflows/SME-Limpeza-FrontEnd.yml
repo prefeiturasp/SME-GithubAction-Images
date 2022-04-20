@@ -19,7 +19,7 @@ jobs:
           gitlabpwd: ${{ secrets.GITLAB_PWD }}
           gitlabrepo: ${{ secrets.GITLAB_REPO_FRONT }}
          run: |
-              git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b main
+              git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b development
       
       -  name: Login to registry
          uses: docker/login-action@v1
@@ -32,15 +32,15 @@ jobs:
         run: |
              cd SME-Limpeza-FrontEnd
              docker login ${{ secrets.REGISTRY_HOST }}
-             docker build . --tag ${{ secrets.REGISTRY_HOST }}/main/limpeza-frontend
-             docker push ${{ secrets.REGISTRY_HOST }}/main/limpeza-frontend
+             docker build . --tag ${{ secrets.REGISTRY_HOST }}/development/limpeza-frontend
+             docker push ${{ secrets.REGISTRY_HOST }}/development/limpeza-frontend
              
   deploy:
   
     runs-on: self-hosted
     needs: [ build ]
     environment:
-      name: production
+      name: development
     steps:
       - name: Redeploy
         uses: luizhpriotto/action_images@kubectl-v2.0

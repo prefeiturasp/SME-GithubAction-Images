@@ -1,0 +1,21 @@
+name: SME-Limpeza-App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    container:
+      image: docker://cirrusci/flutter:1.22.5
+      
+    steps:
+      -  name: Gitlab
+         shell: bash
+         env:
+          gitlabuser: ${{ secrets.GITLAB_USER }}
+          gitlabpwd: ${{ secrets.GITLAB_PWD }}
+          gitlabrepo: ${{ secrets.GITLAB_REPO_APP }}
+         run: |
+              git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b main
+              ls

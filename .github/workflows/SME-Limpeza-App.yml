@@ -17,5 +17,6 @@ jobs:
           gitlabpwd: ${{ secrets.GITLAB_PWD }}
           gitlabrepo: ${{ secrets.GITLAB_REPO_APP }}
          run: |
+              export GIT_SSL_NO_VERIFY=1
               git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b main
               ls

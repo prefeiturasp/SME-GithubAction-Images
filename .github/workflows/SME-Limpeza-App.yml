@@ -23,3 +23,7 @@ jobs:
               cd SME-Limpeza-App
               chmod +x menu-run.sh
               echo 2 | ./menu-run.sh
+              
+      -  name: Deleting..
+         shell: bash
+         run: rm -Rf SME-Limpeza-App

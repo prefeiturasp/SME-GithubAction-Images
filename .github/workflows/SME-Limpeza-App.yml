@@ -1,4 +1,4 @@
-name: DEV - SME-Limpeza-App
+name: SME-Limpeza-App
 
 on:
   workflow_dispatch:

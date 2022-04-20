@@ -28,7 +28,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PWD }}
     
-      - name: Build the Docker image Backend  
+      - name: Build the Docker image Frontend  
         run: |
              cd SME-Limpeza-FrontEnd
              docker login ${{ secrets.REGISTRY_HOST }}

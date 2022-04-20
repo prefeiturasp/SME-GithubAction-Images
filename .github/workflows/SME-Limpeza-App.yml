@@ -1,4 +1,4 @@
-name: SME-Limpeza-App
+name: DEV - SME-Limpeza-App
 
 on:
   workflow_dispatch:
@@ -19,7 +19,11 @@ jobs:
          run: |
               export GIT_SSL_NO_VERIFY=1
               rm -Rf SME-Limpeza-App
-              git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b main
+              git -c credential.helper='!f() { sleep 1; echo "username=$gitlabuser"; echo "password=$gitlabpwd"; }; f' clone $gitlabrepo -b development
               cd SME-Limpeza-App
               chmod +x menu-run.sh
-              echo 2 | ./menu-run.sh
+              echo 1 | ./menu-run.sh
+              
+      -  name: Deleting..
+         shell: bash
+         run: rm -Rf SME-Limpeza-App

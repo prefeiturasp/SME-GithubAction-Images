@@ -5,7 +5,65 @@ on:
   workflow_dispatch:
 
 jobs:
-         
+
+  build-prod:
+
+    runs-on: self-hosted
+    if: ${{ github.ref == 'refs/heads/prod' }}
+    steps:
+      - uses: actions/checkout@v2
+      
+      -  name: Github
+         shell: bash
+         env:
+          gituser: ${{ secrets.GIT_USER }}
+          gittoken: ${{ secrets.GIT_TOKEN }}
+         run: |
+              git clone https://$gituser:$gittoken@github.com/julianocm/SME-Serap-Acompanhamento-Api.git --branch=master
+      
+      -  name: Login to registry
+         uses: docker/login-action@v1
+         with:
+          registry: ${{ secrets.REGISTRY_HOST }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PWD }}
+    
+      - name: Build the Docker image Backend  
+        run: |
+             cd SME-Serap-Acompanhamento-Api
+             docker login ${{ secrets.REGISTRY_HOST }}
+             docker build -f /src/SME.SERAp.Prova.Acompanhamento.Api/Dockerfile --tag ${{ secrets.REGISTRY_HOST }}/master/serap-acompanhamento-api .
+             docker push ${{ secrets.REGISTRY_HOST }}/master/serap-acompanhamento-api
+
+  build-hom:
+
+    runs-on: self-hosted
+    if: ${{ github.ref == 'refs/heads/hom' }}
+    steps:
+      - uses: actions/checkout@v2
+      
+      -  name: Github
+         shell: bash
+         env:
+          gituser: ${{ secrets.GIT_USER }}
+          gittoken: ${{ secrets.GIT_TOKEN }}
+         run: |
+              git clone https://$gituser:$gittoken@github.com/julianocm/SME-Serap-Acompanhamento-Api.git --branch=release
+      
+      -  name: Login to registry
+         uses: docker/login-action@v1
+         with:
+          registry: ${{ secrets.REGISTRY_HOST }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PWD }}
+    
+      - name: Build the Docker image Backend  
+        run: |
+             cd SME-Serap-Acompanhamento-Api
+             docker login ${{ secrets.REGISTRY_HOST }}
+             docker build -f /src/SME.SERAp.Prova.Acompanhamento.Api/Dockerfile --tag ${{ secrets.REGISTRY_HOST }}/release/serap-acompanhamento-api .
+             docker push ${{ secrets.REGISTRY_HOST }}/release/serap-acompanhamento-api
+
   build-dev:
 
     runs-on: self-hosted
@@ -56,7 +114,7 @@ jobs:
     needs: [ build-dev ]
     if: ${{ github.ref == 'refs/heads/dev' }}
     environment:
-      name: production
+      name: development
     steps:
       - name: Redeploy
         uses: luizhpriotto/action_images@kubectl-v2.0
@@ -71,7 +129,7 @@ jobs:
     needs: [ build-hom ]
     if: ${{ github.ref == 'refs/heads/hom' }}
     environment:
-      name: production
+      name: release
     steps:
       - name: Redeploy
         uses: luizhpriotto/action_images@kubectl-v2.0

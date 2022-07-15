@@ -107,6 +107,7 @@ jobs:
         env: 
           RANCHER_URL: ${{ secrets.RANCHER_URL }}
           RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
+          WORKLOAD: serap-acompanhamento-api
           NAMESPACE: sme-serap-acompanhamento
           
   deploy-dev:
@@ -122,6 +123,7 @@ jobs:
         env: 
           RANCHER_URL: ${{ secrets.RANCHER_URL }}
           RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
+          WORKLOAD: serap-acompanhamento-api
           NAMESPACE: sme-serap-acompanhamento
           
   deploy-hom:
@@ -137,4 +139,5 @@ jobs:
         env: 
           RANCHER_URL: ${{ secrets.RANCHER_URL }}
           RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
+          WORKLOAD: serap-acompanhamento-api
           NAMESPACE: sme-serap-acompanhamento

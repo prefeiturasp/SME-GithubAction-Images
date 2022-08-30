@@ -32,7 +32,7 @@ jobs:
         run: |
              cd SME-Prova-Serap-Item-Api
              docker login ${{ secrets.REGISTRY_HOST }}
-             ls-ltra
+             ls -ltra
              docker build -f src/SME.SERAp.Prova.Item.Api/Dockerfile --tag ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-api .
              docker push ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-api
              

@@ -49,4 +49,5 @@ jobs:
         env: 
           RANCHER_URL: ${{ secrets.RANCHER_URL }}
           RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
+          WORKLOAD: serap-itens-api
           NAMESPACE: sme-serap-itens

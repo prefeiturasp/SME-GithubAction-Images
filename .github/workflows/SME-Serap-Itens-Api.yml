@@ -34,21 +34,6 @@ jobs:
              docker login ${{ secrets.REGISTRY_HOST }}
              docker build -f /src/SME.SERAp.Prova.Item.Api/Dockerfile --tag ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-api .
              docker push ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-api
-             
-  deploy-prod:
-  
-    runs-on: self-hosted
-    needs: [ build-prod ]
-    if: ${{ github.ref == 'refs/heads/prod' }}
-    environment:
-      name: production
-    steps:
-      - name: Redeploy
-        uses: luizhpriotto/action_images@kubectl-v2.0
-        env: 
-          RANCHER_URL: ${{ secrets.RANCHER_URL }}
-          RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
-          NAMESPACE: sme-serap-itens
           
   deploy-dev:
   
@@ -56,22 +41,7 @@ jobs:
     needs: [ build-dev ]
     if: ${{ github.ref == 'refs/heads/dev' }}
     environment:
-      name: production
-    steps:
-      - name: Redeploy
-        uses: luizhpriotto/action_images@kubectl-v2.0
-        env: 
-          RANCHER_URL: ${{ secrets.RANCHER_URL }}
-          RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
-          NAMESPACE: sme-serap-itens
-          
-  deploy-hom:
-  
-    runs-on: self-hosted
-    needs: [ build-hom ]
-    if: ${{ github.ref == 'refs/heads/hom' }}
-    environment:
-      name: production
+      name: development
     steps:
       - name: Redeploy
         uses: luizhpriotto/action_images@kubectl-v2.0

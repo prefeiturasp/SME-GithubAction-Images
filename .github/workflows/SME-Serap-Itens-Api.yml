@@ -35,14 +35,32 @@ jobs:
              ls -ltra
              docker build -f src/SME.SERAp.Prova.Item.Api/Dockerfile --tag ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-api .
              docker push ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-api
-             
+
+  flyway-dev:
+  
+    runs-on: self-hosted
+    if: ${{ github.ref == 'refs/heads/dev' }}
+    needs: [ build-dev ]       
+    environment:
+      name: development
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Executando Scripts
+        env:
+          USER_DB: ${{ secrets.SERAP_ITEN_USER_DB }}
+          PASSWORD_DB: ${{ secrets.SERAP_ITEN_PASSWORD_DB }}
+          URL_DB: ${{ secrets.SERAP_ITEN_URL_DB }}
+        run: docker run --rm -v $PWD/scripts:/flyway/sql boxfuse/flyway:5.2.4 -user=$USER_DB -password=$PASSWORD_DB -url=$URL_DB -outOfOrder=true migrate
+
   deploy-dev:
   
     runs-on: self-hosted
-    needs: [ build-dev ]
+    needs: [ flyway-dev ]
     if: ${{ github.ref == 'refs/heads/dev' }}
     environment:
-      name: production
+      name: development
     steps:
       - name: Redeploy
         uses: luizhpriotto/action_images@kubectl-v2.0

@@ -47,6 +47,8 @@ jobs:
       - name: Acessando Scripts
         run: |
              cd SME-Prova-Serap-Item-Api
+             ls -ltra
+             pwd
         
       - name: Executando Scripts
         env:

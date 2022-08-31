@@ -43,19 +43,17 @@ jobs:
     needs: [ build-dev ]       
     environment:
       name: development
-    steps:
-      - name: Acessando Scripts
-        run: |
-             cd SME-Prova-Serap-Item-Api
-             ls -ltra scripts/
-             pwd
-        
+    steps:        
       - name: Executando Scripts
         env:
           USER_DB: ${{ secrets.SERAP_ITEN_USER_DB }}
           PASSWORD_DB: ${{ secrets.SERAP_ITEN_PASSWORD_DB }}
           URL_DB: ${{ secrets.SERAP_ITEN_URL_DB }}
-        run: docker run --rm -v $PWD/scripts:/flyway/sql boxfuse/flyway:5.2.4 -user=$USER_DB -password=$PASSWORD_DB -url=$URL_DB -outOfOrder=true migrate
+        run: |
+             cd SME-Prova-Serap-Item-Api
+             ls -ltra scripts/
+             pwd
+             docker run --rm -v $PWD/scripts:/flyway/sql boxfuse/flyway:5.2.4 -user=$USER_DB -password=$PASSWORD_DB -url=$URL_DB -outOfOrder=true migrate
 
   deploy-dev:
   

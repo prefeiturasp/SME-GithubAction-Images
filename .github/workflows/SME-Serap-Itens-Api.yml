@@ -44,8 +44,9 @@ jobs:
     environment:
       name: development
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Acessando Scripts
+        run: |
+             cd SME-Prova-Serap-Item-Api
         
       - name: Executando Scripts
         env:

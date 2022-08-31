@@ -1,0 +1,53 @@
+name: SME-Serap-Itens-Frontend
+ 
+on:
+
+  workflow_dispatch:
+
+jobs:
+         
+  build-dev:
+
+    runs-on: self-hosted
+    if: ${{ github.ref == 'refs/heads/dev' }}
+    steps:
+      - uses: actions/checkout@v2
+      
+      -  name: Github
+         shell: bash
+         env:
+          gituser: ${{ secrets.GIT_USER }}
+          gittoken: ${{ secrets.GIT_TOKEN }}
+         run: |
+              git clone https://$gituser:$gittoken@github.com/julianocm/SME-Prova-Serap-Item-Frontend.git --branch=develop
+      
+      -  name: Login to registry
+         uses: docker/login-action@v1
+         with:
+          registry: ${{ secrets.REGISTRY_HOST }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PWD }}
+    
+      - name: Build the Docker image Frontend  
+        run: |
+             cd SME-Prova-Serap-Item-Frontend
+             docker login ${{ secrets.REGISTRY_HOST }}
+             ls -ltra
+             docker build -f Dockerfile --tag ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-frontend .
+             docker push ${{ secrets.REGISTRY_HOST }}/develop/serap-itens-frontend
+             
+  deploy-dev:
+  
+    runs-on: self-hosted
+    needs: [ build-dev ]
+    if: ${{ github.ref == 'refs/heads/dev' }}
+    environment:
+      name: development
+    steps:
+      - name: Redeploy
+        uses: luizhpriotto/action_images@kubectl-v2.0
+        env: 
+          RANCHER_URL: ${{ secrets.RANCHER_URL }}
+          RANCHER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
+          WORKLOAD: serap-itens-frontend
+          NAMESPACE: sme-serap-itens

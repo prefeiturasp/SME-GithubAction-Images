@@ -1,4 +1,4 @@
-FROM python:3.6.15-bullseye
+FROM python:3.8.10-buster
 
 RUN useradd -d /runner --uid=1002 runner \
     && echo 'runner:runner' | chpasswd \

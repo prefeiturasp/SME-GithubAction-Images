@@ -19,7 +19,7 @@ jobs:
           gituser: ${{ secrets.GIT_USER }}
           gittoken: ${{ secrets.GIT_TOKEN }}
          run: |
-              git clone https://$gituser:$gittoken@github.com/julianocm/SME-Prova-Serap-Item-Worker.git --branch=develop
+              git clone https://$gituser:$gittoken@https://github.com/prefeiturasp/SME-Prova-Serap-Itens-Worker --branch=develop
       
       -  name: Login to registry
          uses: docker/login-action@v1
